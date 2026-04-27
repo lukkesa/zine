@@ -1,0 +1,679 @@
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--neon:#00FFA3;--blue:#00CFFF;--bg:#0A0F14;--surface:#12181F;--white:#FFFFFF;--gray:#A0A0A0;--purple:#9D7FEA;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;}
+
+nav{position:sticky;top:0;z-index:100;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,15,20,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,255,163,0.08);}
+.logo{font-size:1.5rem;font-weight:800;letter-spacing:3px;background:linear-gradient(90deg,var(--neon),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:.85rem;letter-spacing:.5px;transition:color .3s;}
+.nav-links a:hover{color:var(--neon);}
+.nav-cta{background:linear-gradient(135deg,var(--neon),var(--blue));color:var(--bg);border:none;padding:.5rem 1.4rem;border-radius:6px;font-size:.85rem;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .3s;}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px);}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,255,163,0.07);border:1px solid rgba(0,255,163,0.2);border-radius:20px;padding:.3rem 1rem;font-size:.72rem;color:var(--neon);letter-spacing:1.5px;margin-bottom:1.8rem;position:relative;z-index:2;}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--neon);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.15;}}
+.hero-title{font-size:clamp(3rem,7vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-3px;margin-bottom:1.5rem;position:relative;z-index:2;}
+.hero-title .line2{background:linear-gradient(135deg,var(--neon),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-desc{color:var(--gray);font-size:1.1rem;line-height:1.8;max-width:560px;margin:0 auto 1rem;position:relative;z-index:2;}
+.hero-desc2{color:rgba(160,160,160,0.6);font-size:.9rem;line-height:1.7;max-width:500px;margin:0 auto 2.5rem;position:relative;z-index:2;}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;margin-bottom:3rem;}
+.btn-main{background:linear-gradient(135deg,var(--neon),var(--blue));color:var(--bg);border:none;padding:1rem 2.4rem;border-radius:8px;font-size:1rem;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(0,255,163,0.2);}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(0,255,163,0.4);}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--white);padding:1rem 2.4rem;border-radius:8px;font-size:1rem;cursor:pointer;transition:all .3s;letter-spacing:.5px;}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+.hero-pills{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;}
+.pill{padding:.25rem .75rem;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);font-size:.72rem;color:var(--gray);}
+.pill b{color:var(--neon);font-weight:600;}
+
+/* MARQUEE */
+.mq-wrap{overflow:hidden;padding:1rem 0;background:rgba(18,24,31,0.7);border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);}
+.mq-track{display:flex;gap:2.5rem;white-space:nowrap;animation:mq 30s linear infinite;}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.mq-item{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--gray);letter-spacing:1px;}
+.mq-dot{width:4px;height:4px;border-radius:50%;background:var(--neon);}
+
+/* SECTIONS */
+section{padding:7rem 2.5rem;}
+.s-tag{color:var(--neon);font-size:.7rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:.8rem;}
+.s-title{font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.15;margin-bottom:1rem;}
+.s-sub{color:var(--gray);font-size:1rem;line-height:1.7;}
+.hl{background:linear-gradient(135deg,var(--neon),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* PROBLEM */
+#problem{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.problem-text .s-sub{max-width:440px;margin-bottom:1rem;}
+.problem-text p{color:rgba(160,160,160,0.6);font-size:.9rem;line-height:1.8;max-width:440px;margin-bottom:1rem;}
+.problem-cards{display:flex;flex-direction:column;gap:1rem;}
+.prob-card{padding:1.3rem 1.5rem;border-radius:12px;background:rgba(18,24,31,0.85);border:1px solid rgba(255,255,255,0.05);display:flex;align-items:flex-start;gap:1rem;opacity:0;transform:translateX(40px);transition:all .5s;}
+.prob-card.visible{opacity:1;transform:translateX(0);}
+.prob-card:hover{border-color:rgba(220,50,50,0.3);}
+.prob-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem;}
+.prob-title{font-size:.9rem;font-weight:600;margin-bottom:.2rem;color:#ff6b6b;}
+.prob-desc{font-size:.82rem;color:var(--gray);line-height:1.5;}
+
+/* HOW */
+#how{background:radial-gradient(ellipse at 50% 0%,rgba(0,255,163,0.04),transparent 60%);text-align:center;}
+.how-header{margin-bottom:4rem;}
+.how-header .s-sub{margin:0 auto;max-width:500px;}
+.network-vis{position:relative;height:320px;margin:0 auto 4rem;max-width:640px;}
+#net-canvas{width:100%;height:100%;}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;text-align:left;}
+.how-card{padding:1.5rem;border-radius:14px;background:rgba(18,24,31,0.9);border:1px solid rgba(255,255,255,0.06);opacity:0;transform:translateY(24px);transition:all .5s;}
+.how-card.visible{opacity:1;transform:translateY(0);}
+.how-card:hover{border-color:rgba(0,255,163,0.25);box-shadow:0 16px 50px rgba(0,255,163,0.06);}
+.how-card::before{content:'';display:block;height:2px;border-radius:1px;background:linear-gradient(90deg,var(--neon),var(--blue));margin-bottom:1.2rem;width:40px;}
+.how-num{font-size:.7rem;color:var(--neon);letter-spacing:2px;margin-bottom:.5rem;}
+.how-title{font-size:.95rem;font-weight:600;margin-bottom:.4rem;}
+.how-desc{font-size:.82rem;color:var(--gray);line-height:1.6;}
+
+/* FEATURES */
+#features{background:rgba(18,24,31,0.2);}
+.feat-header{margin-bottom:3.5rem;}
+.feat-header .s-sub{max-width:500px;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.feat-card{padding:2rem;border-radius:16px;background:rgba(18,24,31,0.9);border:1px solid rgba(255,255,255,0.06);position:relative;overflow:hidden;transition:all .4s;opacity:0;transform:translateY(28px);}
+.feat-card.visible{opacity:1;transform:translateY(0);}
+.feat-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 0% 0%,rgba(0,255,163,0.04),transparent 60%);opacity:0;transition:.4s;}
+.feat-card:hover{border-color:rgba(0,255,163,0.2);transform:translateY(-5px);}
+.feat-card:hover::after{opacity:1;}
+.feat-icon{font-size:1.6rem;margin-bottom:1rem;}
+.feat-title{font-size:1rem;font-weight:600;margin-bottom:.5rem;}
+.feat-desc{color:var(--gray);font-size:.84rem;line-height:1.65;}
+.feat-tag{display:inline-block;margin-top:.9rem;padding:.2rem .7rem;border-radius:20px;background:rgba(0,255,163,0.08);color:var(--neon);font-size:.68rem;letter-spacing:1px;}
+
+/* COMPARE */
+#compare{background:radial-gradient(ellipse at 50% 50%,rgba(157,127,234,0.04),transparent 60%);}
+.compare-header{text-align:center;margin-bottom:3.5rem;}
+.compare-header .s-sub{margin:0 auto;max-width:480px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:700px;margin:0 auto;}
+.cmp-col{border-radius:16px;overflow:hidden;}
+.cmp-head{padding:1.2rem 1.5rem;font-size:.85rem;font-weight:700;letter-spacing:1px;}
+.cmp-head.bad{background:rgba(220,50,50,0.1);color:#ff6b6b;border:1px solid rgba(220,50,50,0.15);border-radius:12px 12px 0 0;}
+.cmp-head.good{background:rgba(0,255,163,0.08);color:var(--neon);border:1px solid rgba(0,255,163,0.15);border-radius:12px 12px 0 0;}
+.cmp-item{padding:1rem 1.5rem;font-size:.84rem;line-height:1.5;border-left:1px solid;border-right:1px solid;border-bottom:1px solid;}
+.cmp-item.bad{color:rgba(160,160,160,0.7);border-color:rgba(220,50,50,0.1);background:rgba(220,50,50,0.03);}
+.cmp-item.good{color:rgba(255,255,255,0.85);border-color:rgba(0,255,163,0.1);background:rgba(0,255,163,0.02);}
+.cmp-item:last-child{border-radius:0 0 12px 12px;}
+.cmp-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:.6rem;vertical-align:middle;}
+.cmp-dot.bad{background:#ff6b6b;}
+.cmp-dot.good{background:var(--neon);}
+
+/* PHILOSOPHY */
+#philosophy{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.phil-text .s-sub{max-width:440px;margin-bottom:1rem;}
+.phil-text p{color:rgba(160,160,160,0.65);font-size:.9rem;line-height:1.8;max-width:440px;margin-bottom:1rem;}
+.phil-tiles{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.phil-tile{padding:1.3rem;border-radius:12px;background:rgba(18,24,31,0.8);border:1px solid rgba(255,255,255,0.05);opacity:0;transform:scale(.96);transition:all .5s;}
+.phil-tile.visible{opacity:1;transform:scale(1);}
+.phil-tile:hover{border-color:rgba(0,207,255,0.25);}
+.pt-icon{font-size:1.2rem;margin-bottom:.5rem;}
+.pt-title{font-size:.88rem;font-weight:600;margin-bottom:.3rem;}
+.pt-desc{font-size:.78rem;color:var(--gray);line-height:1.5;}
+
+/* MOCKUP */
+#preview{background:rgba(18,24,31,0.15);overflow:hidden;}
+.preview-header{margin-bottom:2.5rem;}
+.mockup-scroll{display:flex;gap:1.5rem;overflow-x:auto;padding:.5rem .5rem 2rem;scrollbar-width:thin;scrollbar-color:rgba(0,255,163,0.2) transparent;}
+.mockup-scroll::-webkit-scrollbar{height:3px;}
+.mockup-scroll::-webkit-scrollbar-thumb{background:rgba(0,255,163,0.2);border-radius:2px;}
+.mock-card{flex-shrink:0;width:300px;height:500px;border-radius:24px;background:var(--surface);border:1px solid rgba(255,255,255,0.07);overflow:hidden;position:relative;transition:all .3s;}
+.mock-card:hover{border-color:rgba(0,255,163,0.25);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.mock-header{height:56px;background:rgba(0,0,0,0.3);display:flex;align-items:center;padding:0 1rem;gap:.6rem;border-bottom:1px solid rgba(255,255,255,0.04);}
+.mock-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--blue));}
+.mock-name{font-size:.75rem;font-weight:600;color:var(--white);}
+.mock-handle{font-size:.65rem;color:var(--gray);}
+.mock-body{padding:1rem;}
+.mock-post{padding:1rem;border-radius:10px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.04);margin-bottom:.8rem;}
+.mock-post-user{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;}
+.mock-post-av{width:22px;height:22px;border-radius:50%;}
+.mock-post-nm{font-size:.7rem;font-weight:600;}
+.mock-post-hn{font-size:.62rem;color:var(--gray);}
+.mock-post-text{font-size:.72rem;line-height:1.5;color:rgba(255,255,255,0.8);margin-bottom:.5rem;}
+.mock-post-actions{display:flex;gap:.8rem;}
+.mock-action{font-size:.62rem;color:var(--gray);}
+.mock-action.active{color:var(--neon);}
+.mock-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,0.9));font-size:.7rem;color:var(--gray);letter-spacing:1px;}
+
+/* CTA */
+#cta{text-align:center;background:radial-gradient(ellipse at 50% 60%,rgba(0,207,255,0.06),transparent 60%);}
+.cta-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;margin-bottom:.8rem;}
+.cta-sub{color:var(--gray);margin-bottom:.5rem;max-width:500px;margin-left:auto;margin-right:auto;}
+.cta-sub2{color:rgba(160,160,160,0.45);font-size:.85rem;margin-bottom:2.5rem;}
+.cta-form{display:flex;gap:.7rem;max-width:400px;margin:0 auto 1rem;}
+.cta-input{flex:1;background:rgba(18,24,31,0.9);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:.85rem 1.2rem;border-radius:8px;font-size:.9rem;outline:none;transition:border-color .3s;}
+.cta-input::placeholder{color:var(--gray);}
+.cta-input:focus{border-color:rgba(0,255,163,0.4);}
+.cta-btn{background:linear-gradient(135deg,var(--neon),var(--blue));color:var(--bg);border:none;padding:.85rem 1.5rem;border-radius:8px;font-size:.88rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .3s;}
+.cta-btn:hover{opacity:.85;}
+.cta-note{color:rgba(160,160,160,0.4);font-size:.72rem;}
+
+footer{background:rgba(10,15,20,0.98);border-top:1px solid rgba(255,255,255,0.04);padding:2.5rem 2.5rem;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
+.foot-logo{font-size:1.1rem;font-weight:800;letter-spacing:3px;background:linear-gradient(90deg,var(--neon),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.4rem;}
+.foot-tag{color:rgba(160,160,160,0.45);font-size:.78rem;margin-bottom:.8rem;}
+.foot-copy{color:rgba(160,160,160,0.35);font-size:.72rem;}
+.foot-col h4{color:rgba(160,160,160,0.5);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:.8rem;}
+.foot-col a{display:block;color:rgba(160,160,160,0.55);text-decoration:none;font-size:.82rem;margin-bottom:.4rem;transition:color .3s;}
+.foot-col a:hover{color:var(--neon);}
+
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+.fade-left{opacity:0;transform:translateX(-30px);transition:opacity .7s,transform .7s;}
+.fade-left.visible{opacity:1;transform:translateX(0);}
+.glow-line{height:1px;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:.15;}
+</style>
+
+<nav>
+  <div class="logo">ZINE</div>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#compare">Why Zine</a></li>
+    <li><a href="#preview">Preview</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join the waitlist</button>
+</nav>
+
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-eyebrow">In development — join the waitlist</div>
+  <h1 class="hero-title">
+    Your feed.<br>
+    <span class="line2">Your rules.<br>Your network.</span>
+  </h1>
+  <p class="hero-desc">Zine is a decentralized social network where you own your data, your identity, and your connections — not a corporation.</p>
+  <p class="hero-desc2">No algorithms deciding what you see. No ads built on your behavior. No single company that can shut it all down. Just open, federated social media the way it should have been from the start.</p>
+  <div class="hero-btns">
+    <button class="btn-main" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join the waitlist</button>
+    <button class="btn-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works →</button>
+  </div>
+  <div class="hero-pills">
+    <div class="pill"><b>✓</b> Fully open source</div>
+    <div class="pill"><b>✓</b> Federated protocol</div>
+    <div class="pill"><b>✓</b> No ads, ever</div>
+    <div class="pill"><b>✓</b> You own your data</div>
+    <div class="pill"><b>✓</b> End-to-end encrypted DMs</div>
+  </div>
+</section>
+
+<div class="mq-wrap">
+  <div class="mq-track">
+    <div class="mq-item"><div class="mq-dot"></div>Decentralized</div>
+    <div class="mq-item"><div class="mq-dot"></div>Open protocol</div>
+    <div class="mq-item"><div class="mq-dot"></div>No ads</div>
+    <div class="mq-item"><div class="mq-dot"></div>You own your data</div>
+    <div class="mq-item"><div class="mq-dot"></div>End-to-end encryption</div>
+    <div class="mq-item"><div class="mq-dot"></div>No algorithm</div>
+    <div class="mq-item"><div class="mq-dot"></div>Federated</div>
+    <div class="mq-item"><div class="mq-dot"></div>Open source</div>
+    <div class="mq-item"><div class="mq-dot"></div>Privacy first</div>
+    <div class="mq-item"><div class="mq-dot"></div>Portable identity</div>
+    <div class="mq-item"><div class="mq-dot"></div>No shadowbans</div>
+    <div class="mq-item"><div class="mq-dot"></div>Chronological feed</div>
+    <div class="mq-item"><div class="mq-dot"></div>Decentralized</div>
+    <div class="mq-item"><div class="mq-dot"></div>Open protocol</div>
+    <div class="mq-item"><div class="mq-dot"></div>No ads</div>
+    <div class="mq-item"><div class="mq-dot"></div>You own your data</div>
+    <div class="mq-item"><div class="mq-dot"></div>End-to-end encryption</div>
+    <div class="mq-item"><div class="mq-dot"></div>No algorithm</div>
+    <div class="mq-item"><div class="mq-dot"></div>Federated</div>
+    <div class="mq-item"><div class="mq-dot"></div>Open source</div>
+    <div class="mq-item"><div class="mq-dot"></div>Privacy first</div>
+    <div class="mq-item"><div class="mq-dot"></div>Portable identity</div>
+    <div class="mq-item"><div class="mq-dot"></div>No shadowbans</div>
+    <div class="mq-item"><div class="mq-dot"></div>Chronological feed</div>
+  </div>
+</div>
+
+<section id="problem">
+  <div class="problem-text fade-left">
+    <p class="s-tag">// The problem</p>
+    <h2 class="s-title">Social media is <span class="hl">broken</span></h2>
+    <p class="s-sub">Every major platform made the same trade. Your attention — and your data — in exchange for a free service. You were never the customer. You were the product.</p>
+    <p>It wasn't always this bad. But somewhere along the way, "connecting people" became "maximizing engagement at any cost." Outrage drives clicks. Clicks drive ad revenue. And you're caught in the middle.</p>
+    <p>Zine starts from the opposite assumption: that a social network can be useful, honest, and sustainable without mining your personal life to pay for it.</p>
+  </div>
+  <div class="problem-cards">
+    <div class="prob-card" style="transition-delay:.05s">
+      <div class="prob-icon">👁️</div>
+      <div>
+        <div class="prob-title">You're the product</div>
+        <div class="prob-desc">Every scroll, pause, and like is tracked, profiled, and sold to advertisers without your meaningful consent.</div>
+      </div>
+    </div>
+    <div class="prob-card" style="transition-delay:.12s">
+      <div class="prob-icon">🧠</div>
+      <div>
+        <div class="prob-title">Algorithms hijack your attention</div>
+        <div class="prob-desc">Your feed is engineered to keep you outraged, anxious, and online longer — not to show you what you actually care about.</div>
+      </div>
+    </div>
+    <div class="prob-card" style="transition-delay:.19s">
+      <div class="prob-icon">🔒</div>
+      <div>
+        <div class="prob-title">Your account can vanish overnight</div>
+        <div class="prob-desc">One policy change, one automated false positive, and years of content and connections disappear. You own nothing.</div>
+      </div>
+    </div>
+    <div class="prob-card" style="transition-delay:.26s">
+      <div class="prob-icon">🌐</div>
+      <div>
+        <div class="prob-title">Walled gardens trap you</div>
+        <div class="prob-desc">Your followers on one platform can't reach you on another. Every network is an island, by design, to keep you locked in.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<section id="how">
+  <div class="how-header fade-up">
+    <p class="s-tag">// How it works</p>
+    <h2 class="s-title">A network with <span class="hl">no center</span></h2>
+    <p class="s-sub">Zine runs on a federated protocol. Instead of one company owning all the servers, anyone can run a Zine node — and all nodes talk to each other seamlessly.</p>
+  </div>
+  <div class="network-vis">
+    <canvas id="net-canvas"></canvas>
+  </div>
+  <div class="how-grid">
+    <div class="how-card" style="transition-delay:.05s">
+      <div class="how-num">01</div>
+      <div class="how-title">Pick a node or run your own</div>
+      <div class="how-desc">Join any existing Zine node, or spin up your own server in minutes. You're never forced onto a node you don't trust.</div>
+    </div>
+    <div class="how-card" style="transition-delay:.12s">
+      <div class="how-num">02</div>
+      <div class="how-title">Your identity travels with you</div>
+      <div class="how-desc">Your handle and followers aren't locked to one server. Move nodes anytime without losing your account or your audience.</div>
+    </div>
+    <div class="how-card" style="transition-delay:.19s">
+      <div class="how-num">03</div>
+      <div class="how-title">Follow anyone, anywhere</div>
+      <div class="how-desc">A user on one Zine node can follow and interact with a user on any other. The network is open by default, not by exception.</div>
+    </div>
+    <div class="how-card" style="transition-delay:.26s">
+      <div class="how-num">04</div>
+      <div class="how-title">Your data, your export</div>
+      <div class="how-desc">Every piece of content you post is yours to export, move, or delete at any time. No holding your own posts hostage.</div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<section id="features">
+  <div class="feat-header fade-up">
+    <p class="s-tag">// Features</p>
+    <h2 class="s-title">Built different, by design</h2>
+    <p class="s-sub">Zine isn't a Twitter clone with a new coat of paint. It's a rethink of what a social network's responsibilities actually are.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card" style="transition-delay:.04s">
+      <div class="feat-icon">📰</div>
+      <div class="feat-title">Chronological feed</div>
+      <div class="feat-desc">You see posts in the order they were made. No ranking, no boosting, no mystery as to why something appears. What you follow is what you get.</div>
+      <span class="feat-tag">No algorithm</span>
+    </div>
+    <div class="feat-card" style="transition-delay:.09s">
+      <div class="feat-icon">🔐</div>
+      <div class="feat-title">Encrypted direct messages</div>
+      <div class="feat-desc">Private conversations are end-to-end encrypted. Not even the node operator can read your DMs. Actual privacy, not a privacy policy.</div>
+      <span class="feat-tag">E2E encryption</span>
+    </div>
+    <div class="feat-card" style="transition-delay:.14s">
+      <div class="feat-icon">🪪</div>
+      <div class="feat-title">Portable identity</div>
+      <div class="feat-desc">Your account is yours, not the server's. Move between nodes without starting over. Your followers come with you.</div>
+      <span class="feat-tag">Self-sovereign</span>
+    </div>
+    <div class="feat-card" style="transition-delay:.19s">
+      <div class="feat-icon">🚫</div>
+      <div class="feat-title">No ads, ever</div>
+      <div class="feat-desc">There is no advertising model in Zine because there's no single company to sell ads. Nodes can be community-funded, self-hosted, or subscription-supported.</div>
+      <span class="feat-tag">Ad-free</span>
+    </div>
+    <div class="feat-card" style="transition-delay:.24s">
+      <div class="feat-icon">🧩</div>
+      <div class="feat-title">Open protocol</div>
+      <div class="feat-desc">Zine is built on an open standard. Third-party clients, integrations, and tools can connect freely. No API paywalls, no developer hostility.</div>
+      <span class="feat-tag">Open standard</span>
+    </div>
+    <div class="feat-card" style="transition-delay:.29s">
+      <div class="feat-icon">🛡️</div>
+      <div class="feat-title">Community moderation</div>
+      <div class="feat-desc">Each node sets its own moderation rules. There's no global corporate policy applied to everyone — communities govern themselves, with tools to block bad actors across the network.</div>
+      <span class="feat-tag">Federated rules</span>
+    </div>
+    <div class="feat-card" style="transition-delay:.34s">
+      <div class="feat-icon">📦</div>
+      <div class="feat-title">Full data export</div>
+      <div class="feat-desc">Download everything you've ever posted — posts, media, followers, DMs — in an open format. Your content is yours. Period.</div>
+      <span class="feat-tag">Always exportable</span>
+    </div>
+    <div class="feat-card" style="transition-delay:.39s">
+      <div class="feat-icon">👁️‍🗨️</div>
+      <div class="feat-title">Transparent codebase</div>
+      <div class="feat-desc">Every line of Zine's server and client code is public. You don't have to trust our promises — you can read the code yourself.</div>
+      <span class="feat-tag">Open source</span>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="compare-header fade-up">
+    <p class="s-tag">// Why Zine</p>
+    <h2 class="s-title">Not just another app</h2>
+    <p class="s-sub">The difference isn't cosmetic. It's structural. Centralized platforms can't offer what decentralization makes possible — because it would destroy their business model.</p>
+  </div>
+  <div class="compare-grid fade-up" style="transition-delay:.1s">
+    <div class="cmp-col">
+      <div class="cmp-head bad">Centralized platforms</div>
+      <div class="cmp-item bad"><span class="cmp-dot bad"></span>Your data stored and sold by a corporation</div>
+      <div class="cmp-item bad"><span class="cmp-dot bad"></span>Feed curated by engagement algorithms</div>
+      <div class="cmp-item bad"><span class="cmp-dot bad"></span>Account can be suspended or deleted at will</div>
+      <div class="cmp-item bad"><span class="cmp-dot bad"></span>Identity locked to one platform</div>
+      <div class="cmp-item bad"><span class="cmp-dot bad"></span>Ads targeted from your private behavior</div>
+      <div class="cmp-item bad"><span class="cmp-dot bad"></span>Closed source — no accountability</div>
+      <div class="cmp-item bad"><span class="cmp-dot bad"></span>Walled off from other networks</div>
+    </div>
+    <div class="cmp-col">
+      <div class="cmp-head good">Zine</div>
+      <div class="cmp-item good"><span class="cmp-dot good"></span>Data stored on a node you choose or control</div>
+      <div class="cmp-item good"><span class="cmp-dot good"></span>Chronological feed, no manipulation</div>
+      <div class="cmp-item good"><span class="cmp-dot good"></span>You own your account and content</div>
+      <div class="cmp-item good"><span class="cmp-dot good"></span>Portable identity across the whole network</div>
+      <div class="cmp-item good"><span class="cmp-dot good"></span>No ads, no behavioral tracking</div>
+      <div class="cmp-item good"><span class="cmp-dot good"></span>Fully open source and auditable</div>
+      <div class="cmp-item good"><span class="cmp-dot good"></span>Federated — open to any compatible client</div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<section id="philosophy">
+  <div class="phil-text fade-left">
+    <p class="s-tag">// Philosophy</p>
+    <h2 class="s-title">Why we're <span class="hl">building this</span></h2>
+    <p class="s-sub">Social media doesn't have to be extractive. The current model — free service in exchange for surveillance — was a choice, not an inevitability.</p>
+    <p>Federated social networks have existed for years. The technology works. What's been missing is something that feels as polished and easy to use as the centralized alternatives. That's the gap Zine is trying to close.</p>
+    <p>We're not building a startup with an exit strategy. Zine is a community project. The protocol is open, the code is public, and no single entity — including us — can take it away from you.</p>
+  </div>
+  <div class="phil-tiles">
+    <div class="phil-tile" style="transition-delay:.1s">
+      <div class="pt-icon">🌍</div>
+      <div class="pt-title">No single point of failure</div>
+      <div class="pt-desc">If any one node goes down, the rest of the network keeps running. No single server holds it all together.</div>
+    </div>
+    <div class="phil-tile" style="transition-delay:.18s">
+      <div class="pt-icon">📖</div>
+      <div class="pt-title">Radical transparency</div>
+      <div class="pt-desc">The code is public. The protocol is documented. Anyone can audit, fork, or build on top of what we're making.</div>
+    </div>
+    <div class="phil-tile" style="transition-delay:.26s">
+      <div class="pt-icon">⚖️</div>
+      <div class="pt-title">Community governance</div>
+      <div class="pt-desc">Protocol changes go through open discussion and consensus — not a boardroom or a single founder's decision.</div>
+    </div>
+    <div class="phil-tile" style="transition-delay:.34s">
+      <div class="pt-icon">♾️</div>
+      <div class="pt-title">Built to last</div>
+      <div class="pt-desc">No VC pressure, no growth-at-all-costs mandate. Zine is built to be around in 20 years, not flipped in 5.</div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<section id="preview" style="padding-left:2.5rem;padding-right:0;">
+  <div class="preview-header fade-up" style="padding-right:2.5rem;">
+    <p class="s-tag">// Early preview</p>
+    <h2 class="s-title">A glimpse of what's coming</h2>
+    <p class="s-sub" style="max-width:480px;">Still in development, but here's where we're headed. Clean, dark, distraction-free — social media that respects your attention.</p>
+  </div>
+  <div class="mockup-scroll">
+
+    <div class="mock-card">
+      <div class="mock-header">
+        <div class="mock-avatar"></div>
+        <div><div class="mock-name">Zine</div><div class="mock-handle">Home feed</div></div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-post">
+          <div class="mock-post-user">
+            <div class="mock-post-av" style="background:linear-gradient(135deg,#9D7FEA,#00CFFF);"></div>
+            <div><div class="mock-post-nm">alice</div><div class="mock-post-hn">@alice@zine.social</div></div>
+          </div>
+          <div class="mock-post-text">Decentralized social is the only social. If you don't own your identity, you don't own your presence. Full stop.</div>
+          <div class="mock-post-actions"><span class="mock-action active">♥ 42</span><span class="mock-action">↩ 8</span><span class="mock-action">⋯</span></div>
+        </div>
+        <div class="mock-post">
+          <div class="mock-post-user">
+            <div class="mock-post-av" style="background:linear-gradient(135deg,#00FFA3,#00CFFF);"></div>
+            <div><div class="mock-post-nm">bob_dev</div><div class="mock-post-hn">@bob@other.node</div></div>
+          </div>
+          <div class="mock-post-text">Just moved my account from one node to another. Followers intact, posts intact. This is what portability actually means.</div>
+          <div class="mock-post-actions"><span class="mock-action">♥ 19</span><span class="mock-action">↩ 3</span><span class="mock-action">⋯</span></div>
+        </div>
+        <div class="mock-post">
+          <div class="mock-post-user">
+            <div class="mock-post-av" style="background:linear-gradient(135deg,#FF6B9D,#9D7FEA);"></div>
+            <div><div class="mock-post-nm">mara</div><div class="mock-post-hn">@mara@zine.network</div></div>
+          </div>
+          <div class="mock-post-text">No ads for three weeks. My brain feels different. Less anxious. Turns out the outrage was a feature, not a bug.</div>
+          <div class="mock-post-actions"><span class="mock-action">♥ 91</span><span class="mock-action active">↩ 14</span><span class="mock-action">⋯</span></div>
+        </div>
+      </div>
+      <div class="mock-label">Home feed — chronological</div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-header">
+        <div class="mock-avatar" style="background:linear-gradient(135deg,#9D7FEA,#00CFFF);"></div>
+        <div><div class="mock-name">alice</div><div class="mock-handle">@alice@zine.social</div></div>
+      </div>
+      <div class="mock-body">
+        <div style="height:80px;border-radius:8px;background:linear-gradient(135deg,rgba(0,255,163,0.08),rgba(0,207,255,0.08));border:1px solid rgba(0,255,163,0.1);margin-bottom:.8rem;display:flex;align-items:center;padding:0 1rem;gap:.8rem;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#9D7FEA,#00CFFF);"></div>
+          <div>
+            <div style="font-size:.8rem;font-weight:600;margin-bottom:.15rem;">alice</div>
+            <div style="font-size:.65rem;color:var(--gray);">@alice@zine.social · Node: zine.social</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:.8rem;text-align:center;">
+          <div style="padding:.5rem;border-radius:8px;background:rgba(0,0,0,0.2);">
+            <div style="font-size:.9rem;font-weight:600;color:var(--neon);">247</div>
+            <div style="font-size:.6rem;color:var(--gray);">posts</div>
+          </div>
+          <div style="padding:.5rem;border-radius:8px;background:rgba(0,0,0,0.2);">
+            <div style="font-size:.9rem;font-weight:600;color:var(--neon);">1.2k</div>
+            <div style="font-size:.6rem;color:var(--gray);">followers</div>
+          </div>
+          <div style="padding:.5rem;border-radius:8px;background:rgba(0,0,0,0.2);">
+            <div style="font-size:.9rem;font-weight:600;color:var(--neon);">340</div>
+            <div style="font-size:.6rem;color:var(--gray);">following</div>
+          </div>
+        </div>
+        <div class="mock-post">
+          <div class="mock-post-text">Pinned: my public key is verifiable on my profile. No trust required — just math.</div>
+          <div class="mock-post-actions"><span class="mock-action active">♥ 88</span><span class="mock-action">⋯</span></div>
+        </div>
+      </div>
+      <div class="mock-label">Profile — portable identity</div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-header">
+        <div style="font-size:.8rem;font-weight:600;color:var(--white);flex:1;">Direct messages</div>
+        <div style="font-size:.65rem;color:var(--neon);">E2E encrypted</div>
+      </div>
+      <div class="mock-body" style="display:flex;flex-direction:column;gap:.6rem;">
+        <div style="display:flex;justify-content:flex-end;">
+          <div style="max-width:75%;padding:.6rem .8rem;border-radius:12px 12px 4px 12px;background:linear-gradient(135deg,rgba(0,255,163,0.15),rgba(0,207,255,0.15));border:1px solid rgba(0,255,163,0.2);font-size:.75rem;line-height:1.5;">Hey, did you read the Zine whitepaper?</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;">
+          <div style="max-width:75%;padding:.6rem .8rem;border-radius:12px 12px 12px 4px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);font-size:.75rem;line-height:1.5;color:rgba(255,255,255,0.85);">Yeah. The federation model is interesting. Reminds me of email but done right.</div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <div style="max-width:75%;padding:.6rem .8rem;border-radius:12px 12px 4px 12px;background:linear-gradient(135deg,rgba(0,255,163,0.15),rgba(0,207,255,0.15));border:1px solid rgba(0,255,163,0.2);font-size:.75rem;line-height:1.5;">Exactly. And the node operator literally cannot read this conversation.</div>
+        </div>
+        <div style="display:flex;justify-content:flex-start;">
+          <div style="max-width:75%;padding:.6rem .8rem;border-radius:12px 12px 12px 4px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.06);font-size:.75rem;line-height:1.5;color:rgba(255,255,255,0.85);">That's the dream. Sign me up.</div>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:.5rem;align-items:center;">
+          <div style="flex:1;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:.5rem .8rem;font-size:.72rem;color:var(--gray);">Message…</div>
+          <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--neon),var(--blue));display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--bg);font-weight:700;">↑</div>
+        </div>
+      </div>
+      <div class="mock-label">DMs — end-to-end encrypted</div>
+    </div>
+
+    <div class="mock-card">
+      <div class="mock-header">
+        <div style="font-size:.8rem;font-weight:600;color:var(--white);">Settings</div>
+      </div>
+      <div class="mock-body" style="display:flex;flex-direction:column;gap:.5rem;">
+        <div style="font-size:.68rem;color:var(--neon);letter-spacing:1px;margin-bottom:.2rem;">Data &amp; privacy</div>
+        <div style="padding:.7rem .8rem;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.78rem;">Export all my data</span>
+          <span style="font-size:.68rem;color:var(--neon);border:1px solid rgba(0,255,163,0.25);padding:.15rem .5rem;border-radius:4px;">Export</span>
+        </div>
+        <div style="padding:.7rem .8rem;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.78rem;">Move to another node</span>
+          <span style="font-size:.68rem;color:var(--blue);border:1px solid rgba(0,207,255,0.25);padding:.15rem .5rem;border-radius:4px;">Migrate</span>
+        </div>
+        <div style="padding:.7rem .8rem;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.78rem;">Analytics on my posts</span>
+          <span style="font-size:.68rem;color:var(--gray);">Off</span>
+        </div>
+        <div style="font-size:.68rem;color:var(--neon);letter-spacing:1px;margin:.4rem 0 .2rem;">Node info</div>
+        <div style="padding:.7rem .8rem;border-radius:8px;background:rgba(0,255,163,0.04);border:1px solid rgba(0,255,163,0.1);">
+          <div style="font-size:.72rem;color:var(--neon);margin-bottom:.3rem;">zine.social</div>
+          <div style="font-size:.68rem;color:var(--gray);line-height:1.5;">Open source node. Community-operated. No ads. No tracking.</div>
+        </div>
+      </div>
+      <div class="mock-label">Settings — you're in control</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="cta">
+  <div class="fade-up">
+    <p class="s-tag" style="text-align:center;">// Join the movement</p>
+    <h2 class="cta-title">Be there from<br><span class="hl">day one</span></h2>
+    <p class="cta-sub">Zine is in active development. Leave your email and you'll be the first to get access when we open the doors — plus updates on the project as it grows.</p>
+    <p class="cta-sub2">No spam. No marketing fluff. Just real updates on something we actually think matters.</p>
+    <div class="cta-form">
+      <input class="cta-input" type="email" placeholder="your@email.com" />
+      <button class="cta-btn">Notify me</button>
+    </div>
+    <p class="cta-note">We'll only reach out when there's something worth saying.</p>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="foot-logo">ZINE</div>
+    <div class="foot-tag">Decentralized social, done right.</div>
+    <div class="foot-copy">© 2025 Zine. Open source. No rights reserved.</div>
+  </div>
+  <div class="foot-col">
+    <h4>Project</h4>
+    <a href="#">About</a>
+    <a href="#">How it works</a>
+    <a href="#">Protocol spec</a>
+    <a href="#">Roadmap</a>
+  </div>
+  <div class="foot-col">
+    <h4>Community</h4>
+    <a href="#">GitHub</a>
+    <a href="#">Discord</a>
+    <a href="#">Forum</a>
+    <a href="#">Contribute</a>
+  </div>
+  <div class="foot-col">
+    <h4>Run a node</h4>
+    <a href="#">Documentation</a>
+    <a href="#">Node requirements</a>
+    <a href="#">Node directory</a>
+  </div>
+</footer>
+
+<script>
+const hc=document.getElementById('hero-canvas');
+const hctx=hc.getContext('2d');
+function resHC(){hc.width=hc.offsetWidth;hc.height=hc.offsetHeight;}
+resHC();window.addEventListener('resize',resHC);
+const pts=Array.from({length:100},()=>({x:Math.random()*hc.width,y:Math.random()*hc.height,r:Math.random()*1.2+.2,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,a:Math.random()*.4+.1}));
+(function draw(){
+  hctx.clearRect(0,0,hc.width,hc.height);
+  pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=hc.width;if(p.x>hc.width)p.x=0;if(p.y<0)p.y=hc.height;if(p.y>hc.height)p.y=0;hctx.beginPath();hctx.arc(p.x,p.y,p.r,0,Math.PI*2);hctx.fillStyle=`rgba(0,255,163,${p.a})`;hctx.fill();});
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<90){hctx.beginPath();hctx.moveTo(pts[i].x,pts[i].y);hctx.lineTo(pts[j].x,pts[j].y);hctx.strokeStyle=`rgba(0,207,255,${(1-d/90)*.1})`;hctx.lineWidth=.5;hctx.stroke();}}
+  requestAnimationFrame(draw);
+})();
+
+const nc=document.getElementById('net-canvas');
+const nctx=nc.getContext('2d');
+function resNC(){nc.width=nc.offsetWidth;nc.height=nc.offsetHeight;}
+resNC();
+const nodes=[];
+const W2=()=>nc.width,H2=()=>nc.height;
+function initNodes(){
+  nodes.length=0;
+  const cx=W2()/2,cy=H2()/2;
+  nodes.push({x:cx,y:cy,r:10,label:'you',main:true,vx:0,vy:0});
+  const rings=[[5,100],[8,200]];
+  rings.forEach(([count,radius])=>{
+    for(let i=0;i<count;i++){
+      const a=(i/count)*Math.PI*2+Math.random()*.3;
+      nodes.push({x:cx+Math.cos(a)*radius+(Math.random()-.5)*30,y:cy+Math.sin(a)*radius+(Math.random()-.5)*30,r:Math.random()*3+4,label:'',main:false,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15});
+    }
+  });
+}
+initNodes();
+(function drawNet(){
+  nctx.clearRect(0,0,W2(),H2());
+  const cx=W2()/2,cy=H2()/2;
+  for(let i=1;i<nodes.length;i++){
+    const n=nodes[i];
+    const dx=n.x-cx,dy=n.y-cy,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<220){
+      nctx.beginPath();nctx.moveTo(cx,cy);nctx.lineTo(n.x,n.y);
+      nctx.strokeStyle=`rgba(0,255,163,${(1-d/220)*.2})`;nctx.lineWidth=.8;nctx.stroke();
+    }
+    for(let j=i+1;j<nodes.length;j++){
+      const m=nodes[j];
+      const dx2=n.x-m.x,dy2=n.y-m.y,d2=Math.sqrt(dx2*dx2+dy2*dy2);
+      if(d2<80){
+        nctx.beginPath();nctx.moveTo(n.x,n.y);nctx.lineTo(m.x,m.y);
+        nctx.strokeStyle=`rgba(0,207,255,${(1-d2/80)*.12})`;nctx.lineWidth=.5;nctx.stroke();
+      }
+    }
+  }
+  nodes.forEach((n,i)=>{
+    if(i>0){n.x+=n.vx;n.y+=n.vy;if(n.x<20||n.x>W2()-20)n.vx*=-1;if(n.y<20||n.y>H2()-20)n.vy*=-1;}
+    nctx.beginPath();nctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    if(n.main){
+      const g=nctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);
+      g.addColorStop(0,'rgba(0,255,163,1)');g.addColorStop(1,'rgba(0,207,255,.6)');
+      nctx.fillStyle=g;
+    } else {
+      nctx.fillStyle=i<6?'rgba(0,255,163,0.6)':'rgba(0,207,255,0.4)';
+    }
+    nctx.fill();
+    if(n.main){nctx.fillStyle='#fff';nctx.font='bold 9px sans-serif';nctx.textAlign='center';nctx.fillText('YOU',n.x,n.y+3);}
+  });
+  requestAnimationFrame(drawNet);
+})();
+
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
+document.querySelectorAll('.fade-up,.fade-left,.prob-card,.how-card,.feat-card,.phil-tile').forEach(el=>obs.observe(el));
+</script>
